@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FileShift: Konverter File Lokal Cepat & Aman</title>
+  <meta name="description" content="Konversi dokumen cepat dan aman antara XLSX ke CSV, CSV ke XLSX, PDF ke Word, dan Word ke PDF secara lokal tanpa upload ke server eksternal.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Skip link for keyboard accessibility -->
+  <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <path d="m9 15 3 3 3-3"></path>
+            <path d="M12 12v6"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">FileShift</h1>
+          <span class="brand-badge">Local-First</span>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Navigasi Utama">
+        <ul class="nav-list">
+          <li><a href="#converter" class="nav-link active">Konverter</a></li>
+          <li><a href="#inspector" class="nav-link">Pratinjau</a></li>
+          <li><a href="#history" class="nav-link">Riwayat</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <div class="engine-badge" id="engine-status" title="Status koneksi mesin konversi lokal">
+          <span class="status-dot online" aria-hidden="true"></span>
+          <span id="engine-status-text">Mesin Lokal Siap</span>
+        </div>
+        <button id="theme-toggle" class="btn-icon" aria-label="Ganti tema tampilan (Terang / Gelap)" title="Ganti Tema">
+          <!-- Sun Icon (shown in dark mode) -->
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (shown in light mode) -->
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Bento Content -->
+  <main id="main-content" class="main-container" role="main">
+    
+    <!-- Hero / Headline Section -->
+    <section class="intro-section" aria-labelledby="intro-heading">
+      <h2 id="intro-heading" class="intro-title">Konversi Dokumen dan Spreadsheet Seketika</h2>
+      <p class="intro-description">
+        Dukungan penuh dua arah: XLSX ke CSV, CSV ke XLSX, PDF ke Word (DOCX), serta Word (DOCX) ke PDF. Seluruh pemrosesan berjalan di lingkungan lokal Anda.
+      </p>
+    </section>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid">
+
+      <!-- Bento Card 1: Hub Konversi Utama (Span 8 Kolom) -->
+      <section id="converter" class="bento-card bento-card-primary col-span-8" aria-labelledby="converter-card-title">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-tag">Modul Utama</span>
+            <h3 id="converter-card-title" class="card-title">Pusat Konversi File</h3>
+          </div>
+          <div class="conversion-route-badge" id="route-indicator">
+            <span class="format-pill" id="badge-source-fmt">XLSX</span>
+            <svg class="route-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+            <span class="format-pill accent" id="badge-target-fmt">CSV</span>
+            <button id="btn-swap-formats" class="btn-swap" aria-label="Tukar format asal dan tujuan" title="Tukar Format">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="17 1 21 5 17 9"></polyline>
+                <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                <polyline points="7 23 3 19 7 15"></polyline>
+                <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dropzone Area -->
+        <div id="dropzone" class="dropzone-area" tabindex="0" role="button" aria-label="Area seret file atau tekan Enter untuk memilih file">
+          <input type="file" id="file-input" class="file-input-hidden" accept=".xlsx,.csv,.pdf,.docx" aria-label="Pilih file dokumen">
+          
+          <div class="dropzone-content" id="dropzone-empty-state">
+            <div class="dropzone-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <p class="dropzone-heading">Tarik dan letakkan file di sini</p>
+            <p class="dropzone-sub">atau klik untuk membuka penjelajah file di komputer Anda</p>
+            <div class="supported-formats-pills" aria-label="Format yang didukung">
+              <span class="fmt-pill">.XLSX</span>
+              <span class="fmt-pill">.CSV</span>
+              <span class="fmt-pill">.PDF</span>
+              <span class="fmt-pill">.DOCX</span>
+            </div>
+          </div>
+
+          <!-- File Active State (Hidden by default) -->
+          <div class="dropzone-active-state" id="dropzone-active-state" style="display: none;">
+            <div class="active-file-card">
+              <div class="file-type-badge" id="active-file-ext">XLSX</div>
+              <div class="file-details">
+                <span class="file-name" id="active-file-name">laporan_keuangan.xlsx</span>
+                <span class="file-meta" id="active-file-size">45.2 KB</span>
+              </div>
+              <button id="btn-remove-file" class="btn-icon-subtle" aria-label="Hapus file terpilih" title="Batalkan Pilihan File">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conversion Options -->
+        <div class="options-bar" id="options-bar">
+          <div class="option-field" id="opt-delimiter-group">
+            <label for="select-delimiter" class="field-label">Pemisah CSV:</label>
+            <select id="select-delimiter" class="select-control">
+              <option value="auto">Deteksi Otomatis</option>
+              <option value="," selected>Koma (,)</option>
+              <option value=";">Titik Koma (;)</option>
+              <option value="&#9;">Tab (\t)</option>
+              <option value="|">Pipa (|)</option>
+            </select>
+          </div>
+
+          <div class="option-field" id="opt-sheet-group">
+            <label for="select-sheet" class="field-label">Lembar Kerja (Sheet):</label>
+            <select id="select-sheet" class="select-control">
+              <option value="0" selected>Sheet Pertama (Default)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Action / Status Zone -->
+        <div class="action-footer">
+          <!-- State 1: Ready to Convert -->
+          <div id="state-ready" class="action-row">
+            <button id="btn-select-file" class="btn btn-secondary">Pilih File Dokumen</button>
+            <button id="btn-convert" class="btn btn-primary" disabled>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="16 3 21 3 21 8"></polyline>
+                <line x1="4" y1="20" x2="21" y2="3"></line>
+                <polyline points="21 16 21 21 16 21"></polyline>
+                <line x1="15" y1="15" x2="21" y2="21"></line>
+                <line x1="4" y1="4" x2="9" y2="9"></line>
+              </svg>
+              Mulai Konversi
+            </button>
+          </div>
+
+          <!-- State 2: Processing / Loading -->
+          <div id="state-processing" class="processing-box" style="display: none;" role="status" aria-live="polite">
+            <div class="progress-info">
+              <span class="progress-label" id="progress-step-text">Memproses dokumen...</span>
+              <span class="progress-percent" id="progress-percent-text">50%</span>
+            </div>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progress-fill" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <!-- State 3: Conversion Success -->
+          <div id="state-success" class="success-box" style="display: none;" role="region" aria-live="polite">
+            <div class="success-header">
+              <div class="success-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="success-text">
+                <p class="success-title">Konversi Berhasil Diselesaikan</p>
+                <p class="success-meta" id="success-meta-info">File siap diunduh</p>
+              </div>
+            </div>
+            <div class="success-actions">
+              <button id="btn-download-result" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Unduh Hasil Konversi
+              </button>
+              <button id="btn-reset-converter" class="btn btn-secondary">Konversi File Baru</button>
+            </div>
+          </div>
+
+          <!-- State 4: Error State -->
+          <div id="state-error" class="error-box" style="display: none;" role="alert">
+            <div class="error-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="error-text">
+              <p class="error-title">Gagal Melakukan Konversi</p>
+              <p class="error-msg" id="error-message-text">Terjadi kesalahan pada struktur file.</p>
+            </div>
+            <button id="btn-dismiss-error" class="btn-error-action">Coba Ulang</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Card 2: Presets Pilihan Format (Span 4 Kolom) -->
+      <section class="bento-card col-span-4" aria-labelledby="presets-card-title">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-tag">Rute Cepat</span>
+            <h3 id="presets-card-title" class="card-title">Pilihan Mode Format</h3>
+          </div>
+        </div>
+        <p class="card-description">Pilih pasangan format di bawah untuk mengatur jenis konversi secara instan:</p>
+        
+        <div class="preset-list" role="radiogroup" aria-label="Daftar pasangan format konversi">
+          
+          <button class="preset-item active" data-from="xlsx" data-to="csv" role="radio" aria-checked="true">
+            <div class="preset-badge-group">
+              <span class="fmt-pill">XLSX</span>
+              <span class="preset-arrow" aria-hidden="true">➔</span>
+              <span class="fmt-pill accent">CSV</span>
+            </div>
+            <div class="preset-text">
+              <span class="preset-name">Excel ke CSV</span>
+              <span class="preset-detail">Ekspor tabel ke teks standar</span>
+            </div>
+          </button>
+
+          <button class="preset-item" data-from="csv" data-to="xlsx" role="radio" aria-checked="false">
+            <div class="preset-badge-group">
+              <span class="fmt-pill">CSV</span>
+              <span class="preset-arrow" aria-hidden="true">➔</span>
+              <span class="fmt-pill accent">XLSX</span>
+            </div>
+            <div class="preset-text">
+              <span class="preset-name">CSV ke Excel</span>
+              <span class="preset-detail">Struktur data tabular ke spreadsheet</span>
+            </div>
+          </button>
+
+          <button class="preset-item" data-from="pdf" data-to="docx" role="radio" aria-checked="false">
+            <div class="preset-badge-group">
+              <span class="fmt-pill">PDF</span>
+              <span class="preset-arrow" aria-hidden="true">➔</span>
+              <span class="fmt-pill accent">DOCX</span>
+            </div>
+            <div class="preset-text">
+              <span class="preset-name">PDF ke Word</span>
+              <span class="preset-detail">Ekstraksi layout ke dokumen yang dapat diedit</span>
+            </div>
+          </button>
+
+          <button class="preset-item" data-from="docx" data-to="pdf" role="radio" aria-checked="false">
+            <div class="preset-badge-group">
+              <span class="fmt-pill">DOCX</span>
+              <span class="preset-arrow" aria-hidden="true">➔</span>
+              <span class="fmt-pill accent">PDF</span>
+            </div>
+            <div class="preset-text">
+              <span class="preset-name">Word ke PDF</span>
+              <span class="preset-detail">Kompilasi dokumen Word ke format arsip PDF</span>
+            </div>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- Bento Card 3: Inspektor & Pratinjau Dokumen (Span 7 Kolom) -->
+      <section id="inspector" class="bento-card col-span-7" aria-labelledby="inspector-card-title">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-tag">Pemeriksa Berkas</span>
+            <h3 id="inspector-card-title" class="card-title">Pratinjau Struktur File</h3>
+          </div>
+          <div class="inspector-meta-summary" id="inspector-summary-badge">
+            <span class="meta-item" id="meta-row-or-page-count">0 Baris</span>
+          </div>
+        </div>
+
+        <div class="inspector-tabs" role="tablist">
+          <button id="tab-btn-source" class="tab-btn active" role="tab" aria-selected="true" aria-controls="preview-content-box">File Sumber</button>
+          <button id="tab-btn-target" class="tab-btn" role="tab" aria-selected="false" aria-controls="preview-content-box">Hasil Konversi</button>
+        </div>
+
+        <div class="inspector-body" id="preview-content-box" tabindex="0" role="region" aria-label="Area pratinjau isi dokumen">
+          <!-- Empty State -->
+          <div class="inspector-empty" id="inspector-empty-view">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <circle cx="12" cy="14" r="2"></circle>
+            </svg>
+            <p class="empty-title">Belum ada file untuk diinspeksi</p>
+            <p class="empty-sub">Pilih atau letakkan file pada form konversi untuk melihat ringkasan baris atau teks dokumen secara langsung.</p>
+          </div>
+
+          <!-- Table Preview Container -->
+          <div class="table-preview-container" id="inspector-table-view" style="display: none;">
+            <table class="preview-table" id="preview-data-table">
+              <thead id="preview-table-head"></thead>
+              <tbody id="preview-table-body"></tbody>
+            </table>
+          </div>
+
+          <!-- Document Text Preview Container -->
+          <div class="doc-preview-container" id="inspector-doc-view" style="display: none;">
+            <div class="doc-meta-stats" id="doc-meta-stats"></div>
+            <div class="doc-text-blocks" id="doc-text-blocks"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Card 4: Riwayat Konversi Sesi (Span 5 Kolom) -->
+      <section id="history" class="bento-card col-span-5" aria-labelledby="history-card-title">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-tag">Sesi Ini</span>
+            <h3 id="history-card-title" class="card-title">Riwayat Konversi</h3>
+          </div>
+          <button id="btn-clear-history" class="btn-text-subtle" title="Bersihkan riwayat sesi">
+            Bersihkan Riwayat
+          </button>
+        </div>
+
+        <div class="history-container" id="history-list-box" tabindex="0" role="region" aria-label="Daftar riwayat konversi">
+          <!-- Empty State -->
+          <div class="history-empty" id="history-empty-view">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <p class="empty-title">Belum ada riwayat konversi</p>
+            <p class="empty-sub">File yang berhasil dikonversi akan tersimpan dalam daftar ini selama sesi browser aktif.</p>
+          </div>
+
+          <!-- Active History List -->
+          <ul class="history-list" id="history-items-list" style="display: none;"></ul>
+        </div>
+      </section>
+
+      <!-- Bento Card 5: Jaminan Privasi & Pemrosesan Lokal (Span 6 Kolom) -->
+      <section class="bento-card col-span-6" aria-labelledby="privacy-card-title">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-tag">Privasi Terjaga</span>
+            <h3 id="privacy-card-title" class="card-title">Pemrosesan Dokumen Lokal</h3>
+          </div>
+        </div>
+        <p class="card-body-text">
+          Semua konversi dijalankan langsung di memori lingkungan lokal tanpa pernah dikirim ke pihak ketiga atau layanan cloud publik. Berkas Anda tetap aman dan terjaga kerahasiaannya.
+        </p>
+        <div class="engine-specs-grid">
+          <div class="spec-item">
+            <span class="spec-label">Spreadsheet Engine</span>
+            <span class="spec-value">ECMA-376 OpenXML Parser</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">Document Engine</span>
+            <span class="spec-value">Poppler + PostScript Vector</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Card 6: Ringkasan Metrik Penggunaan (Span 6 Kolom) -->
+      <section class="bento-card col-span-6" aria-labelledby="stats-card-title">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-tag">Statistik Sesi</span>
+            <h3 id="stats-card-title" class="card-title">Ringkasan Aktivitas</h3>
+          </div>
+        </div>
+        <div class="stats-counters-grid">
+          <div class="counter-card">
+            <span class="counter-number" id="stat-total-converted">0</span>
+            <span class="counter-caption">File Selesai Dikonversi</span>
+          </div>
+          <div class="counter-card">
+            <span class="counter-number" id="stat-total-bytes">0 KB</span>
+            <span class="counter-caption">Total Volume Diproses</span>
+          </div>
+          <div class="counter-card">
+            <span class="counter-number" id="stat-active-mode">XLSX ➔ CSV</span>
+            <span class="counter-caption">Modus Paling Sering</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <p class="footer-copy">
+        FileShift &bull; Aplikasi Konversi Dokumen Lokal Mandiri
+      </p>
+      <p class="footer-hint">
+        Pintasan Keyboard: <kbd>Tab</kbd> navigasi, <kbd>Enter</kbd> pilih preset, <kbd>Esc</kbd> batalkan pilihan
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
