@@ -41,7 +41,7 @@ def convert_file(file_bytes: bytes,
     out_filename = f"{base_name}{ext}"
 
     if pair == ("xlsx", "csv"):
-        delimiter = opts.get("delimiter", ",")
+        delimiter = opts.get("delimiter") or ","
         sheet_idx = int(opts.get("sheet_index", 0))
         csv_str = xlsx_to_csv(file_bytes, delimiter=delimiter, sheet_index=sheet_idx)
         out_bytes = csv_str.encode("utf-8")
