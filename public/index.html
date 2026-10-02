@@ -32,8 +32,8 @@
       <nav class="site-nav" aria-label="Navigasi Utama">
         <ul class="nav-list">
           <li><a href="#converter" class="nav-link active">Konverter</a></li>
-          <li><a href="#inspector" class="nav-link">Pratinjau</a></li>
           <li><a href="#history" class="nav-link">Riwayat</a></li>
+          <li><a href="#stats" class="nav-link">Statistik</a></li>
         </ul>
       </nav>
 
@@ -250,102 +250,89 @@
           
           <button class="preset-item active" data-from="xlsx" data-to="csv" role="radio" aria-checked="true">
             <div class="preset-badge-group">
-              <span class="fmt-pill">XLSX</span>
-              <span class="preset-arrow" aria-hidden="true">➔</span>
-              <span class="fmt-pill accent">CSV</span>
+              <span class="fmt-chip fmt-xlsx">XLSX</span>
+              <svg class="preset-flow-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="13 6 19 12 13 18"></polyline>
+              </svg>
+              <span class="fmt-chip fmt-csv">CSV</span>
             </div>
             <div class="preset-text">
               <span class="preset-name">Excel ke CSV</span>
-              <span class="preset-detail">Ekspor tabel ke teks standar</span>
+              <span class="preset-detail">Ekspor tabel ke teks terstruktur</span>
+            </div>
+            <div class="preset-check" aria-hidden="true">
+              <svg class="check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
             </div>
           </button>
 
           <button class="preset-item" data-from="csv" data-to="xlsx" role="radio" aria-checked="false">
             <div class="preset-badge-group">
-              <span class="fmt-pill">CSV</span>
-              <span class="preset-arrow" aria-hidden="true">➔</span>
-              <span class="fmt-pill accent">XLSX</span>
+              <span class="fmt-chip fmt-csv">CSV</span>
+              <svg class="preset-flow-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="13 6 19 12 13 18"></polyline>
+              </svg>
+              <span class="fmt-chip fmt-xlsx">XLSX</span>
             </div>
             <div class="preset-text">
               <span class="preset-name">CSV ke Excel</span>
               <span class="preset-detail">Struktur data tabular ke spreadsheet</span>
             </div>
+            <div class="preset-check" aria-hidden="true">
+              <svg class="check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
           </button>
 
           <button class="preset-item" data-from="pdf" data-to="docx" role="radio" aria-checked="false">
             <div class="preset-badge-group">
-              <span class="fmt-pill">PDF</span>
-              <span class="preset-arrow" aria-hidden="true">➔</span>
-              <span class="fmt-pill accent">DOCX</span>
+              <span class="fmt-chip fmt-pdf">PDF</span>
+              <svg class="preset-flow-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="13 6 19 12 13 18"></polyline>
+              </svg>
+              <span class="fmt-chip fmt-docx">DOCX</span>
             </div>
             <div class="preset-text">
               <span class="preset-name">PDF ke Word</span>
-              <span class="preset-detail">Ekstraksi layout ke dokumen yang dapat diedit</span>
+              <span class="preset-detail">Ekstraksi layout ke dokumen Word</span>
+            </div>
+            <div class="preset-check" aria-hidden="true">
+              <svg class="check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
             </div>
           </button>
 
           <button class="preset-item" data-from="docx" data-to="pdf" role="radio" aria-checked="false">
             <div class="preset-badge-group">
-              <span class="fmt-pill">DOCX</span>
-              <span class="preset-arrow" aria-hidden="true">➔</span>
-              <span class="fmt-pill accent">PDF</span>
+              <span class="fmt-chip fmt-docx">DOCX</span>
+              <svg class="preset-flow-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="13 6 19 12 13 18"></polyline>
+              </svg>
+              <span class="fmt-chip fmt-pdf">PDF</span>
             </div>
             <div class="preset-text">
               <span class="preset-name">Word ke PDF</span>
-              <span class="preset-detail">Kompilasi dokumen Word ke format arsip PDF</span>
+              <span class="preset-detail">Kompilasi dokumen Word ke format PDF</span>
+            </div>
+            <div class="preset-check" aria-hidden="true">
+              <svg class="check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
             </div>
           </button>
 
         </div>
       </section>
 
-      <!-- Bento Card 3: Inspektor & Pratinjau Dokumen (Span 7 Kolom) -->
-      <section id="inspector" class="bento-card col-span-7" aria-labelledby="inspector-card-title">
-        <div class="card-header">
-          <div class="card-title-group">
-            <span class="card-tag">Pemeriksa Berkas</span>
-            <h3 id="inspector-card-title" class="card-title">Pratinjau Struktur File</h3>
-          </div>
-          <div class="inspector-meta-summary" id="inspector-summary-badge">
-            <span class="meta-item" id="meta-row-or-page-count">0 Baris</span>
-          </div>
-        </div>
-
-        <div class="inspector-tabs" role="tablist">
-          <button id="tab-btn-source" class="tab-btn active" role="tab" aria-selected="true" aria-controls="preview-content-box">File Sumber</button>
-          <button id="tab-btn-target" class="tab-btn" role="tab" aria-selected="false" aria-controls="preview-content-box">Hasil Konversi</button>
-        </div>
-
-        <div class="inspector-body" id="preview-content-box" tabindex="0" role="region" aria-label="Area pratinjau isi dokumen">
-          <!-- Empty State -->
-          <div class="inspector-empty" id="inspector-empty-view">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <circle cx="12" cy="14" r="2"></circle>
-            </svg>
-            <p class="empty-title">Belum ada file untuk diinspeksi</p>
-            <p class="empty-sub">Pilih atau letakkan file pada form konversi untuk melihat ringkasan baris atau teks dokumen secara langsung.</p>
-          </div>
-
-          <!-- Table Preview Container -->
-          <div class="table-preview-container" id="inspector-table-view" style="display: none;">
-            <table class="preview-table" id="preview-data-table">
-              <thead id="preview-table-head"></thead>
-              <tbody id="preview-table-body"></tbody>
-            </table>
-          </div>
-
-          <!-- Document Text Preview Container -->
-          <div class="doc-preview-container" id="inspector-doc-view" style="display: none;">
-            <div class="doc-meta-stats" id="doc-meta-stats"></div>
-            <div class="doc-text-blocks" id="doc-text-blocks"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Bento Card 4: Riwayat Konversi Sesi (Span 5 Kolom) -->
-      <section id="history" class="bento-card col-span-5" aria-labelledby="history-card-title">
+      <!-- Bento Card: Riwayat Konversi Sesi (Span 8 Kolom) -->
+      <section id="history" class="bento-card col-span-8" aria-labelledby="history-card-title">
         <div class="card-header">
           <div class="card-title-group">
             <span class="card-tag">Sesi Ini</span>
@@ -372,31 +359,8 @@
         </div>
       </section>
 
-      <!-- Bento Card 5: Jaminan Privasi & Pemrosesan Lokal (Span 6 Kolom) -->
-      <section class="bento-card col-span-6" aria-labelledby="privacy-card-title">
-        <div class="card-header">
-          <div class="card-title-group">
-            <span class="card-tag">Privasi Terjaga</span>
-            <h3 id="privacy-card-title" class="card-title">Pemrosesan Dokumen Lokal</h3>
-          </div>
-        </div>
-        <p class="card-body-text">
-          Semua konversi dijalankan langsung di memori lingkungan lokal tanpa pernah dikirim ke pihak ketiga atau layanan cloud publik. Berkas Anda tetap aman dan terjaga kerahasiaannya.
-        </p>
-        <div class="engine-specs-grid">
-          <div class="spec-item">
-            <span class="spec-label">Spreadsheet Engine</span>
-            <span class="spec-value">ECMA-376 OpenXML Parser</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-label">Document Engine</span>
-            <span class="spec-value">Poppler + PostScript Vector</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Bento Card 6: Ringkasan Metrik Penggunaan (Span 6 Kolom) -->
-      <section class="bento-card col-span-6" aria-labelledby="stats-card-title">
+      <!-- Bento Card: Ringkasan Metrik Penggunaan (Span 4 Kolom) -->
+      <section id="stats" class="bento-card col-span-4" aria-labelledby="stats-card-title">
         <div class="card-header">
           <div class="card-title-group">
             <span class="card-tag">Statistik Sesi</span>

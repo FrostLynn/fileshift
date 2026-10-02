@@ -13,8 +13,6 @@
     targetFormat: 'csv',
     convertedBlob: null,
     convertedFilename: '',
-    sourcePreview: null,
-    targetPreview: null,
     history: [],
     stats: {
       totalConverted: 0,
@@ -67,19 +65,6 @@
     stateError: document.getElementById('state-error'),
     errorMessageText: document.getElementById('error-message-text'),
     btnDismissError: document.getElementById('btn-dismiss-error'),
-    
-    // Inspector & Preview
-    inspectorSummaryBadge: document.getElementById('inspector-summary-badge'),
-    metaRowOrPageCount: document.getElementById('meta-row-or-page-count'),
-    tabBtnSource: document.getElementById('tab-btn-source'),
-    tabBtnTarget: document.getElementById('tab-btn-target'),
-    inspectorEmptyView: document.getElementById('inspector-empty-view'),
-    inspectorTableView: document.getElementById('inspector-table-view'),
-    previewTableHead: document.getElementById('preview-table-head'),
-    previewTableBody: document.getElementById('preview-table-body'),
-    inspectorDocView: document.getElementById('inspector-doc-view'),
-    docMetaStats: document.getElementById('doc-meta-stats'),
-    docTextBlocks: document.getElementById('doc-text-blocks'),
     
     // History & Stats
     historyEmptyView: document.getElementById('history-empty-view'),
@@ -214,8 +199,6 @@
     elements.btnConvert.disabled = false;
     showState('ready');
 
-    // Run File Inspection
-    inspectSelectedFile(file, ext);
   }
 
   function clearSelectedFile() {
@@ -225,7 +208,6 @@
     elements.dropzoneActiveState.style.display = 'none';
     elements.btnConvert.disabled = true;
     showState('ready');
-    clearInspector();
   }
 
   elements.dropzone.addEventListener('click', (e) => {
@@ -279,124 +261,6 @@
       handleFileSelected(dt.files[0]);
     }
   });
-
-  // 5. File Inspection & Preview
-  async function inspectSelectedFile(file, ext) {
-    try {
-      // 1. If backend API is available, request inspect endpoint
-      if (state.isOnlineServer) {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('from', ext);
-
-        const res = await fetch('/api/inspect', {
-          method: 'POST',
-          body: formData
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          state.sourcePreview = data;
-          renderInspector(data);
-          return;
-        }
-      }
-
-      // 2. Client-side fallback inspection
-      if (ext === 'csv') {
-        const text = await file.text();
-        const lines = text.split(/\r?\n/).filter(l => l.trim() !== '');
-        const rows = lines.slice(0, 11).map(l => l.split(','));
-        const inspectData = {
-          format: 'csv',
-          preview_type: 'table',
-          metadata: { total_rows: lines.length, columns_count: rows[0] ? rows[0].length : 0 },
-          preview_data: { headers: rows[0] || [], rows: rows.slice(1) }
-        };
-        state.sourcePreview = inspectData;
-        renderInspector(inspectData);
-      } else {
-        const inspectData = {
-          format: ext,
-          preview_type: 'document',
-          metadata: { size: file.size },
-          preview_data: { snippet: `File ${file.name} (${formatBytes(file.size)}) siap dikonversi ke format ${state.targetFormat.toUpperCase()}.` }
-        };
-        state.sourcePreview = inspectData;
-        renderInspector(inspectData);
-      }
-    } catch (err) {
-      console.warn('Inspection failed:', err);
-    }
-  }
-
-  function renderInspector(data) {
-    if (!data) {
-      clearInspector();
-      return;
-    }
-
-    elements.inspectorEmptyView.style.display = 'none';
-
-    if (data.preview_type === 'table' && data.preview_data) {
-      elements.inspectorDocView.style.display = 'none';
-      elements.inspectorTableView.style.display = 'block';
-
-      const totalRows = data.metadata ? data.metadata.total_rows : (data.preview_data.rows ? data.preview_data.rows.length : 0);
-      elements.metaRowOrPageCount.textContent = `${totalRows} Baris`;
-
-      // Render Table Headers
-      const headers = data.preview_data.headers || [];
-      elements.previewTableHead.innerHTML = '<tr>' + headers.map(h => `<th>${escapeHtml(h)}</th>`).join('') + '</tr>';
-
-      // Render Table Rows
-      const rows = data.preview_data.rows || [];
-      elements.previewTableBody.innerHTML = rows.map(r => {
-        return '<tr>' + r.map(c => `<td>${escapeHtml(c)}</td>`).join('') + '</tr>';
-      }).join('');
-
-    } else if (data.preview_type === 'document' && data.preview_data) {
-      elements.inspectorTableView.style.display = 'none';
-      elements.inspectorDocView.style.display = 'block';
-
-      const pages = (data.metadata && data.metadata.pages) ? `${data.metadata.pages} Halaman` : '';
-      const words = (data.metadata && data.metadata.words_count) ? `${data.metadata.words_count} Kata` : '';
-      elements.metaRowOrPageCount.textContent = pages || words || `${formatBytes(data.size_bytes || 0)}`;
-
-      elements.docMetaStats.textContent = [pages, words].filter(Boolean).join(' • ') || 'Dokumen Terbaca';
-
-      const snippet = data.preview_data.snippet || '';
-      elements.docTextBlocks.innerHTML = `<p class="doc-para">${escapeHtml(snippet)}</p>`;
-    }
-  }
-
-  function clearInspector() {
-    elements.inspectorEmptyView.style.display = 'flex';
-    elements.inspectorTableView.style.display = 'none';
-    elements.inspectorDocView.style.display = 'none';
-    elements.metaRowOrPageCount.textContent = '0 Baris';
-  }
-
-  elements.tabBtnSource.addEventListener('click', () => {
-    elements.tabBtnSource.classList.add('active');
-    elements.tabBtnTarget.classList.remove('active');
-    renderInspector(state.sourcePreview);
-  });
-
-  elements.tabBtnTarget.addEventListener('click', () => {
-    elements.tabBtnTarget.classList.add('active');
-    elements.tabBtnSource.classList.remove('active');
-    renderInspector(state.targetPreview);
-  });
-
-  function escapeHtml(str) {
-    if (str === null || str === undefined) return '';
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
 
   // 6. UI State Management (ready, processing, success, error)
   function showState(viewName) {
@@ -487,41 +351,12 @@
         timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
       });
 
-      // Inspect Converted File for Preview
-      inspectConvertedFile(blob, outFilename, toFmt);
 
     } catch (err) {
       elements.errorMessageText.textContent = err.message || 'Terjadi kesalahan sistem saat pemrosesan.';
       showState('error');
     }
   });
-
-  async function inspectConvertedFile(blob, filename, fmt) {
-    try {
-      const inspectData = await (async () => {
-        if (fmt === 'csv') {
-          const text = await blob.text();
-          const lines = text.split(/\r?\n/).filter(l => l.trim() !== '');
-          const rows = lines.slice(0, 11).map(l => l.split(','));
-          return {
-            format: 'csv',
-            preview_type: 'table',
-            metadata: { total_rows: lines.length, columns_count: rows[0] ? rows[0].length : 0 },
-            preview_data: { headers: rows[0] || [], rows: rows.slice(1) }
-          };
-        } else {
-          return {
-            format: fmt,
-            preview_type: 'document',
-            metadata: { size: blob.size },
-            preview_data: { snippet: `Hasil konversi: ${filename} (${formatBytes(blob.size)}). Berkas siap untuk dibuka atau diedit.` }
-          };
-        }
-      })();
-
-      state.targetPreview = inspectData;
-    } catch (_) {}
-  }
 
   // 8. Download Result
   elements.btnDownloadResult.addEventListener('click', () => {

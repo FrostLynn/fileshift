@@ -1,0 +1,11 @@
+.git
+.git_repo
+.git_data
+__pycache__
+*.py[cod]
+*$py.class
+tests/
+bin/
+*.md
+.DS_Store
+*.tmp

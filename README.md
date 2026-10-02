@@ -23,18 +23,33 @@ Aplikasi berbasis web modern dan alat command-line untuk konversi berkas berkece
 
 ---
 
-## Menjalankan Aplikasi Web
+## Menjalankan dengan Docker (Direkomendasikan)
+
+Aplikasi dapat dijalankan langsung menggunakan Docker tanpa perlu menginstal dependensi manual di host:
+
+```bash
+# Menggunakan Docker Compose (Satu Perintah)
+docker compose up -d
+
+# Atau Build dan Run langsung dengan Docker CLI
+docker build -t fileshift .
+docker run -d -p 8080:8080 --name fileshift fileshift
+```
+
+Buka peramban web dan akses:
+```
+http://localhost:8080
+```
+
+---
+
+## Menjalankan Secara Manual (Tanpa Docker)
 
 Pastikan Python 3.10+ dan utilitas dokumen (`poppler-utils`, `ghostscript`) terinstal di sistem Anda:
 
 ```bash
 # Jalankan server web FileShift
 python3 server.py 8080
-```
-
-Buka peramban web dan akses:
-```
-http://localhost:8080
 ```
 
 ---
