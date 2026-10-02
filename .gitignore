@@ -1,0 +1,10 @@
+.git_data/
+__pycache__/
+*.py[cod]
+*$py.class
+*.swp
+*.swo
+.DS_Store
+dist/
+build/
+*.tmp
